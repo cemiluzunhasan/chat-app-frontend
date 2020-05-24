@@ -15,6 +15,7 @@
 <script>
 import io from 'socket.io-client';
 import MessageItem from '@/components/MessageItem.vue';
+import userPrompt from 'electron-osx-prompt';
 
 export default {
   name: 'layout',
@@ -25,17 +26,34 @@ export default {
     return {
       messages: [],
       message: '',
-      socket: io('http://localhost:3000')
+      peer: { }
     }
   },
   mounted() {
-    this.socket.on('new_message', (message) => {
+    userPrompt("User", "Please write the username of the user that you want to communicate").then(username => {
+      this.$socket.emit('check-user', username);
+    }).catch(err => {
+      console.log("Error");
+    });
+
+    this.$socket.on('you-can-chat', peer => {
+      this.peer = peer;
+      console.log("Peer burada", this.peer);
+    })
+
+    this.$socket.on('take-message', message => {
       this.messages.push(message);
     })
   },
+  updated() {
+    
+  },
   methods: {
     send() {
-      this.socket.emit('send-message', this.message);
+      if (this.peer.socketId) {
+        this.$socket.emit('send-message', { ...this.peer, message: this.message });
+        this.messages.push(this.message);
+      }
       this.message = '';
     }
   }
