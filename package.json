@@ -51,7 +51,7 @@
     }
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "crypto": "^1.0.1",
     "crypto-js": "^4.0.0",
     "electron-osx-prompt": "^1.4.1",
