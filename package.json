@@ -55,7 +55,7 @@
     "crypto": "^1.0.1",
     "crypto-js": "^4.0.0",
     "electron-osx-prompt": "^1.4.1",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "uws": "^10.148.1",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
